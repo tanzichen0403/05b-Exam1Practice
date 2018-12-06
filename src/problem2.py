@@ -3,8 +3,8 @@ PRACTICE Exam 1, problem 2.
 
 Authors: David Mutchler, Vibha Alangar, Matt Boutell, Dave Fisher,
          Valerie Galluzzi, Mark Hays, Amanda Stouder, Aaron Wilkin,
-         their colleagues, and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+         their colleagues, and Zichen Tan.
+"""  # Done: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 import rosegraphics as rg
 
@@ -112,6 +112,29 @@ def problem2a(circle, rectangle, window):
     #    TIME ESTIMATE:   10 to 15 minutes.
     # -------------------------------------------------------------------------
 
+    rectangle.attach_to(window)
+    circle.attach_to(window)
+    a = abs(rectangle.corner_2.x - rectangle.corner_1.x)
+    b = abs(rectangle.corner_2.y - rectangle.corner_1.y)
+    window.render()
+    mid = rg.Point((rectangle.corner_1.x + rectangle.corner_2.x) / 2, (rectangle.corner_1.y + rectangle.corner_2.y) / 2)
+    c = mid.x + a/2
+    e = mid.y - b/2
+    f = mid.x - a/2
+    g = mid.y + b/2
+    point1 = rg.Point(c,e)
+    point2 = rg.Point(f,g)
+    line =rg.Line(point1,point2)
+    line.arrow="last"
+    line.attach_to(window)
+    window.get_next_mouse_click()
+    window.render()
+    window.get_next_mouse_click()
+    color = rectangle.outline_color
+    circle.fill_color = color
+    window.render()
+
+
 def run_test_problem2b():
     """ Tests the  problem2b   function. """
     print()
@@ -182,7 +205,26 @@ def problem2b(rect, n, delta, win):
     #    DIFFICULTY:      7
     #    TIME ESTIMATE:   15 to 25 minutes.
     # -------------------------------------------------------------------------
+    rect.attach_to(win)
 
+    a = abs(rect.corner_2.x - rect.corner_1.x)
+    b = abs(rect.corner_2.y - rect.corner_1.y)
+    win.render()
+    mid = rg.Point((rect.corner_1.x + rect.corner_2.x) / 2, (rect.corner_1.y + rect.corner_2.y) / 2)
+    c = mid.x + a / 2
+    e = mid.y - b / 2
+    f = mid.x - a / 2
+    g = mid.y + b / 2
+    for k in range(n-1):
+        c = c+delta
+        e = e-delta
+        f = f-delta
+        g = g+delta
+        point1 = rg.Point(c, e)
+        point2 = rg.Point(f, g)
+        rect2 = rg.Rectangle(point1, point2)
+        rect2.attach_to(win)
+    win.render()
 
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
