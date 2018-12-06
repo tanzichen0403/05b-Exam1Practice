@@ -3,8 +3,8 @@ PRACTICE Exam 1, problem 3.
 
 Authors: David Mutchler, Vibha Alangar, Matt Boutell, Dave Fisher,
          Valerie Galluzzi, Mark Hays, Amanda Stouder, Aaron Wilkin,
-         their colleagues, and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+         their colleagues, and Zichen Tan.
+"""  # Done: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 import rosegraphics as rg
 
@@ -38,7 +38,7 @@ def main():
 def run_test_problem3a():
     """ Tests the   problem3a   function. """
     # -------------------------------------------------------------------------
-    # TODO: 2. Implement this TEST function.
+    # Done: 2. Implement this TEST function.
     #   It TESTS the  problem1a  function defined below.
     #   Include at least **   5   ** tests (we wrote four for you).
     # -------------------------------------------------------------------------
@@ -97,6 +97,17 @@ def run_test_problem3a():
     print('       actual:  ', answer)
 
     window3.close_on_mouse_click()
+    title = 'Problem 3a. Test 4: Start at (25, 80), 150 lines'
+    window4 = rg.RoseWindow(450, 300, title)
+    # Test 5 (it is on window 3):
+    point = rg.Point(25, 80)
+    expected = 1908
+    answer = problem3a(window4, point, 150)
+    print()
+    print('Test 5 expected:', expected)
+    print('       actual:  ', answer)
+
+    window4.close_on_mouse_click()
 
     # -------------------------------------------------------------------------
     # TO DO: 2 (continued).
@@ -138,7 +149,7 @@ def problem3a(window, point, n):
         :type n:      int
     """
     # -------------------------------------------------------------------------
-    # TODO: 3. Implement and test this function.
+    # Done: 3. Implement and test this function.
     #   Note that you should write its TEST function first (above).
     # -------------------------------------------------------------------------
     # -------------------------------------------------------------------------
@@ -146,6 +157,27 @@ def problem3a(window, point, n):
     #    DIFFICULTY:      7 or 8
     #    TIME ESTIMATE:   20 to 35 minutes.
     # -------------------------------------------------------------------------
+    x=point.x
+    y=point.y
+    point1=rg.Point(x,y+50)
+    line=rg.Line(point,point1)
+    line.attach_to(window)
+    c=1
+    for k in range(n-1):
+        point1=rg.Point(point1.x+20,point1.y+10)
+        point=rg.Point(point.x+20,point.y+10)
+        line = rg.Line(point, point1)
+        n=2*(k+1)+1
+        if n<=13:
+            line.thickness=n
+            c = c + line.thickness
+        else:
+            line.thickness = 13
+            c = c + line.thickness
+        line.attach_to(window)
+    window.render()
+    return c
+
 
 
 def run_test_problem3b():
@@ -202,7 +234,7 @@ def problem3b(m, point1):
         :type point1: rg.Point
     """
     # -------------------------------------------------------------------------
-    # TODO: 4. Implement and test this function.
+    # Done: 4. Implement and test this function.
     #          Tests have been written for you (above).
     #
     ###########################################################################
@@ -215,7 +247,34 @@ def problem3b(m, point1):
     #    DIFFICULTY:      8 or 9
     #    TIME ESTIMATE:   20 to 30 minutes.
     # -------------------------------------------------------------------------
+    window=rg.RoseWindow(400,650)
+    x=point1.x
+    y=point1.y
+    pa=y+50
+    c=1
+    for i in range(m):
+        h=2*i+3
 
+        point1=rg.Point(x,y+60*i)
+        point2=rg.Point(x,pa+60*i)
+        line=rg.Line(point1,point2)
+        line.attach_to(window)
+        for k in range(h-1):
+            point2=rg.Point(point2.x+20,point2.y+10)
+            point1=rg.Point(point1.x+20,point1.y+10)
+            line = rg.Line(point1, point2)
+            n=2*(k+1)+1
+            if n<=13:
+                line.thickness=n
+                c = c + line.thickness
+            else:
+                line.thickness = 13
+                c = c + line.thickness
+            line.attach_to(window)
+        window.render()
+    c=c+m-1
+    window.close_on_mouse_click()
+    return c
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
 # -----------------------------------------------------------------------------
